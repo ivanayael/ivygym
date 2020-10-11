@@ -1,25 +1,29 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Navbar from './components/Navbar';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import Inicio from './pages/Inicio';
+import Alumnos from './pages/Alumnos';
+import Tutores from './pages/Tutores';
+import Asistencia from './pages/Asistencia';
+import ReporteAsistenciaNivel from './pages/ReporteAsistenciaNivel';
+import ReportePagoNivel from './pages/ReportePagoNivel';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Router>
+        <Navbar />
+        <Switch>
+          <Route path='/' exact component={Inicio} />
+          <Route path='/Alumnos' exact component={Alumnos} />
+          <Route path='/Tutores' component={Tutores} />
+          <Route path='/Asistencia' component={Asistencia} />
+          <Route path='/ReporteAsistenciaNivel' component={ReporteAsistenciaNivel} />
+          <Route path='/ReportePagoNivel' component={ReportePagoNivel} />
+        </Switch>
+      </Router>
+    </>
   );
 }
 
