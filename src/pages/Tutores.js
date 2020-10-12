@@ -171,7 +171,7 @@ function Tutores() {
         <br />
         <label for="idAlumno">ID de Alumno:</label>
         <br />
-        <input type="text" name="idAlumno" id="idAlumno" className="form-control" onChange={handleChange}></input>
+        <input type="number" name="idAlumno" id="idAlumno" className="form-control" onChange={handleChange}></input>
         <br />
       </div>
 
@@ -212,7 +212,7 @@ function Tutores() {
         <br />
         <label for="idAlumno">ID de Alumno:</label>
         <br />
-        <input type="text" name="idAlumno" id="idAlumno" className="form-control" onChange={handleChange}  value={TutorsSeleccionado && TutorsSeleccionado.idAlumno} ></input>
+        <input type="number" name="idAlumno" id="idAlumno" className="form-control" onChange={handleChange}  value={TutorsSeleccionado && TutorsSeleccionado.idAlumno} ></input>
         <br />
         <br />
       </div>

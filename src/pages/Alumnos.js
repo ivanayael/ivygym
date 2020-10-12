@@ -1,7 +1,7 @@
 import React, { useState, useEffect} from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
-import {Modal, ModalBody, ModalFooter, ModalHeader} from 'reactstrap';
+import { AvForm, AvGroup, AvInput, AvFeedback } from 'availity-reactstrap-validation';
+import { FormGroup, Button, Label, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { useAlert } from 'react-alert';
 
 
@@ -39,6 +39,17 @@ function Alumnos() {
     console.log(AlumnoesSeleccionado);
   }
 
+
+  const handleValidSubmit=e=>{
+    const {values}=e.target;
+    this.setState({values});
+  }
+
+  const handleInvalidSubmit=e=>{
+    const {values}=e.target;
+    this.setState({values});
+  }
+
   const abrirCerrarModalGuardar=()=>{
     setModalGuardar(!modalGuardar);
   }
@@ -65,7 +76,6 @@ function Alumnos() {
     AlumnoesSeleccionado.valor=parseInt(AlumnoesSeleccionado.valor);
     if (AlumnoesSeleccionado.edad < 18) {
       alert.show('El alumno ingresado es menor de edad, se debe ingresar un tutor legal. Dirijase a la seccion correspondiente');
-      alert('El alumno ingresado es menor de edad, se debe ingresar un tutor legal. Dirijase a la seccion correspondiente');
     }
     await axios.post(baseUrl, AlumnoesSeleccionado)
     .then(response=>{
@@ -130,7 +140,7 @@ function Alumnos() {
   return (
     <div className="Alumnos">
       <br/><br/>
-      <button onClick={()=>abrirCerrarModalGuardar()} className="btn btn-success">Agregar Nuevo Alumno</button>
+      <Button onClick={()=>abrirCerrarModalGuardar()} color="success">Agregar Nuevo Alumno</Button>{" "}
       <br/><br/>
       <table className="table table-bordered">
       <thead>
@@ -170,8 +180,8 @@ function Alumnos() {
         <td>{Alumnoes.diasPractica}</td>
         <td>{Alumnoes.valor}</td>
         <td>
-          <button className="btn btn-primary" onClick={()=>seleccionarAlumnoes(Alumnoes, "Modificar")}>Modificar</button> {"  "}
-          <button className="btn btn-danger" onClick={()=>seleccionarAlumnoes(Alumnoes, "Eliminar")}>Eliminar</button>
+          <Button color="primary" onClick={()=>seleccionarAlumnoes(Alumnoes, "Modificar")}>Modificar</Button>{"  "}
+          <Button color="danger" onClick={()=>seleccionarAlumnoes(Alumnoes, "Eliminar")}>Eliminar</Button>{"  "}
         </td>
       </tr>
      ))}
@@ -181,133 +191,172 @@ function Alumnos() {
     <Modal isOpen={modalGuardar}>
     <ModalHeader>Agregar Alumno</ModalHeader>
     <ModalBody>
-      <div className="form-group">
-        <label for="nombre">Nombre:</label>
+      <AvForm onInvalidSubmit={handleInvalidSubmit} className="form-group">
+      <FormGroup>
+      <AvGroup>
+        <Label for="nombre">Nombre:</Label>
         <br />
-        <input type="text" name="nombre" id="nombre" className="form-control" onChange={handleChange}></input>
+        <AvInput type="text" name="nombre" id="nombre" className="form-control" onChange={handleChange} required />
+        <AvFeedback>Se requiere un nombre</AvFeedback>
+      </AvGroup>
         <br />
-        <label for="apellido">Apellido:</label>
+        <AvGroup>
+        <Label for="apellido">Apellido:</Label>
         <br />
-        <input type="text" name="apellido" id="apellido" className="form-control" onChange={handleChange}></input>
+        <AvInput type="text" name="apellido" id="apellido" className="form-control" onChange={handleChange} required />
+        <AvFeedback>Se requiere un apellido</AvFeedback>
+        </AvGroup>
         <br />
-        <label for="dni">D.N.I.:</label>
+        <AvGroup>
+        <Label for="dni">D.N.I.:</Label>
         <br />
-        <input type="number" name="dni" id="dni" className="form-control" min="8" max="8" onChange={handleChange}></input>
+        <AvInput type="number" name="dni" id="dni" className="form-control" onChange={handleChange} required />
+        <AvFeedback>Se requiere un DNI</AvFeedback>
+        </AvGroup>
         <br />
-        <label for="fechaNacimiento">Fecha de Nacimiento:</label>
+        <AvGroup>
+        <Label for="fechaNacimiento">Fecha de Nacimiento:</Label>
         <br />
-        <input type="datetime-local" name="fechaNacimiento" id="fechaNacimiento" className="form-control" onChange={handleChange}></input>
+        <AvInput type="date" name="fechaNacimiento" id="fechaNacimiento" className="form-control" onChange={handleChange} required />
+        <AvFeedback>Se requiere una fecha de nacimiento</AvFeedback>
+        </AvGroup>
         <br />
-        <label for="edad">Edad:</label>
+        <AvGroup>
+        <Label for="edad">Edad:</Label>
         <br />
-        <input type="text" name="edad" id="edad" className="form-control" onChange={handleChange}></input>
+        <AvInput type="number" name="edad" id="edad" className="form-control" onChange={handleChange} />
+        <AvFeedback>Se requiere una edad</AvFeedback>
+        </AvGroup>
         <br />
-        <label for="mail">Mail:</label>
+        <AvGroup>
+        <Label for="mail">Mail:</Label>
         <br />
-        <input type="email" name="mail" id="mail" className="form-control" onChange={handleChange}></input>
+        <AvInput type="email" name="mail" id="mail" className="form-control" onChange={handleChange} required></AvInput>
+        </AvGroup>
         <br />
-        <label for="obrasocial">Obra Social:</label>
+        <AvGroup>
+        <Label for="obrasocial">Obra Social:</Label>
         <br />
-        <input type="text" name="obrasocial" id="obrasocial" className="form-control" onChange={handleChange}></input>
+        <AvInput type="text" name="obrasocial" id="obrasocial" className="form-control" onChange={handleChange} required></AvInput>
+        </AvGroup>
         <br />
-        <label for="certificadomedico">Certificado Médico:</label>
+        <AvGroup>
+        <Label for="certificadomedico">Certificado Médico:</Label>
         <br />
-        <input type="file" accept="image/x-png,image/gif,image/jpeg" name="certificadomedico" id="certificadomedico" className="form-control" onChange={handleChange}></input>
+        <AvInput type="file" accept="image/x-png,image/gif,image/jpeg" name="certificadomedico" id="certificadomedico" className="form-control" onChange={handleChange}></AvInput>
+        </AvGroup>
         <br />
-        <label for="numerosocio">Número de Socio:</label>
+        <AvGroup>
+        <Label for="numerosocio">Número de Socio:</Label>
         <br />
-        <input type="text" name="numerosocio" id="numerosocio" className="form-control" onChange={handleChange}></input>
+        <AvInput type="text" name="numerosocio" id="numerosocio" className="form-control" onChange={handleChange} required></AvInput>
+        </AvGroup>
         <br />
-        <label for="nivel">Nivel:</label>
+        <AvGroup>
+        <Label for="nivel">Nivel:</Label>
         <br />
-        <input type="text" name="nivel" id="nivel" className="form-control" onChange={handleChange}></input>
+        <AvInput type="text" name="nivel" id="nivel" className="form-control" onChange={handleChange}></AvInput>
+        </AvGroup>
         <br />
-        <label for="categoria">Categoria:</label>
+        <AvGroup>
+        <Label for="categoria">Categoria:</Label>
         <br />
-        <input type="text" name="categoria" id="categoria" className="form-control" onChange={handleChange}></input>
+        <AvInput type="text" name="categoria" id="categoria" className="form-control" onChange={handleChange}></AvInput>
+        </AvGroup>
         <br />
-        <label for="diasPractica">Dias de Práctica:</label>
+        <AvGroup>
+        <Label for="diasPractica">Dias de Práctica:</Label>
         <br />
-        <input type="text" name="diasPractica" id="diasPractica" className="form-control" onChange={handleChange}></input>
+        <AvInput type="text" name="diasPractica" id="diasPractica" className="form-control" onChange={handleChange}></AvInput>
+        </AvGroup>
         <br />
-        <label for="valor">Valor:</label>
+        <AvGroup>
+        <Label for="valor">Valor:</Label>
         <br />
-        <input type="text" name="valor" id="valor" className="form-control" onChange={handleChange}></input>
+        <AvInput type="number" name="valor" id="valor" className="form-control" onChange={handleChange}></AvInput>
+        </AvGroup>
         <br />
-      </div>
+        </FormGroup>
+      </AvForm>
 
     </ModalBody>
     <ModalFooter>
-      <button type="button" className="btn btn-primary" onClick={()=>peticionPost()}>Agregar</button>{"  "}
-      <button type="button" className="btn btn-danger" onClick={()=>abrirCerrarModalGuardar()}>Cancelar</button>
+    <FormGroup>
+      <Button color="primary" onClick={()=>peticionPost()}>Agregar</Button>{"  "}
+      <Button color="danger" onClick={()=>abrirCerrarModalGuardar()}>Cancelar</Button>{"  "}
+    </FormGroup>
     </ModalFooter>
     </Modal>
     
     <Modal isOpen={modalModificar}>
     <ModalHeader>Modificar Alumno</ModalHeader>
     <ModalBody>
-      <div className="form-group">
-        <label for="idAlumno">ID de Alumno:</label>
+    <AvForm onInvalidSubmit={handleInvalidSubmit} className="form-group">
+      <FormGroup>
+        <Label for="idAlumno">ID de Alumno:</Label>
         <br />
-        <input type="text" name="idAlumno" id="idAlumno" className="form-control" readOnly value={AlumnoesSeleccionado && AlumnoesSeleccionado.idAlumno }></input>
+        <AvInput type="text" name="idAlumno" id="idAlumno" className="form-control" readOnly value={AlumnoesSeleccionado && AlumnoesSeleccionado.idAlumno }></AvInput>
         <br />
-        <label for="nombre">Nombre:</label>
+        <Label for="nombre">Nombre:</Label>
         <br />
-        <input type="text" name="nombre" id="nombre" className="form-control" onChange={handleChange} value={AlumnoesSeleccionado && AlumnoesSeleccionado.nombre}></input>
+        <AvInput type="text" name="nombre" id="nombre" className="form-control" onChange={handleChange} value={AlumnoesSeleccionado && AlumnoesSeleccionado.nombre}></AvInput>
         <br />
-        <label for="apellido">Apellido:</label>
+        <Label for="apellido">Apellido:</Label>
         <br />
-        <input type="text" name="apellido" id="apellido" className="form-control" onChange={handleChange} value={AlumnoesSeleccionado && AlumnoesSeleccionado.apellido}></input>
+        <AvInput type="text" name="apellido" id="apellido" className="form-control" onChange={handleChange} value={AlumnoesSeleccionado && AlumnoesSeleccionado.apellido}></AvInput>
         <br />
-        <label for="dni">D.N.I.:</label>
+        <Label for="dni">D.N.I.:</Label>
         <br />
-        <input type="number" name="dni" id="dni" className="form-control" min="8" max="8" onChange={handleChange} value={AlumnoesSeleccionado && AlumnoesSeleccionado.dni}></input>
+        <AvInput type="number" name="dni" id="dni" className="form-control" min="8" max="8" onChange={handleChange} value={AlumnoesSeleccionado && AlumnoesSeleccionado.dni}></AvInput>
         <br />
-        <label for="fechaNacimiento">Fecha de Nacimiento:</label>
+        <Label for="fechaNacimiento">Fecha de Nacimiento:</Label>
         <br />
-        <input type="datetime-local" name="fechaNacimiento" id="fechaNacimiento" className="form-control" onChange={handleChange} value={AlumnoesSeleccionado && AlumnoesSeleccionado.fechaNacimiento}></input>
+        <AvInput type="datetime-local" name="fechaNacimiento" id="fechaNacimiento" className="form-control" onChange={handleChange} value={AlumnoesSeleccionado && AlumnoesSeleccionado.fechaNacimiento}></AvInput>
         <br />
-        <label for="edad">Edad:</label>
+        <Label for="edad">Edad:</Label>
         <br />
-        <input type="number" name="edad" id="edad" className="form-control" min="1" max="2" onChange={handleChange} value={AlumnoesSeleccionado && AlumnoesSeleccionado.edad}></input>
+        <AvInput type="number" name="edad" id="edad" className="form-control" min="1" max="2" onChange={handleChange} value={AlumnoesSeleccionado && AlumnoesSeleccionado.edad}></AvInput>
         <br />
-        <label for="mail">Mail:</label>
+        <Label for="mail">Mail:</Label>
         <br />
-        <input type="email" name="mail" id="mail" className="form-control" onChange={handleChange} value={AlumnoesSeleccionado && AlumnoesSeleccionado.mail}></input>
+        <AvInput type="email" name="mail" id="mail" className="form-control" onChange={handleChange} value={AlumnoesSeleccionado && AlumnoesSeleccionado.mail}></AvInput>
         <br />
-        <label for="obrasocial">Obra Social:</label>
+        <Label for="obrasocial">Obra Social:</Label>
         <br />
-        <input type="text" name="obrasocial" id="obrasocial" className="form-control" onChange={handleChange} value={AlumnoesSeleccionado && AlumnoesSeleccionado.obrasocial}></input>
+        <AvInput type="text" name="obrasocial" id="obrasocial" className="form-control" onChange={handleChange} value={AlumnoesSeleccionado && AlumnoesSeleccionado.obrasocial}></AvInput>
         <br />
-        <label for="certificadomedico">Certificado Médico:</label>
+        <Label for="certificadomedico">Certificado Médico:</Label>
         <br />
-        <input type="image" alt="certificado medico" name="certificadomedico" id="certificadomedico"  className="form-control" onChange={handleChange} value={AlumnoesSeleccionado && AlumnoesSeleccionado.certificadomedico}></input>
+        <AvInput type="image" alt="certificado medico" name="certificadomedico" id="certificadomedico"  className="form-control" onChange={handleChange} value={AlumnoesSeleccionado && AlumnoesSeleccionado.certificadomedico}></AvInput>
         <br />
-        <label for="numerosocio">Número de Socio:</label>
+        <Label for="numerosocio">Número de Socio:</Label>
         <br />
-        <input type="text" name="numerosocio" id="numerosocio" className="form-control" onChange={handleChange} value={AlumnoesSeleccionado && AlumnoesSeleccionado.numerosocio}></input>
+        <AvInput type="text" name="numerosocio" id="numerosocio" className="form-control" onChange={handleChange} value={AlumnoesSeleccionado && AlumnoesSeleccionado.numerosocio}></AvInput>
         <br />
-        <label for="nivel">Nivel:</label>
+        <Label for="nivel">Nivel:</Label>
         <br />
-        <input type="text" name="nivel" id="nivel" className="form-control" onChange={handleChange} value={AlumnoesSeleccionado && AlumnoesSeleccionado.nivel}></input>
+        <AvInput type="text" name="nivel" id="nivel" className="form-control" onChange={handleChange} value={AlumnoesSeleccionado && AlumnoesSeleccionado.nivel}></AvInput>
         <br />
-        <label for="categoria">Categoria:</label>
+        <Label for="categoria">Categoria:</Label>
         <br />
-        <input type="text" name="categoria" id="categoria" className="form-control" onChange={handleChange} value={AlumnoesSeleccionado && AlumnoesSeleccionado.categoria}></input>
+        <AvInput type="text" name="categoria" id="categoria" className="form-control" onChange={handleChange} value={AlumnoesSeleccionado && AlumnoesSeleccionado.categoria}></AvInput>
         <br />
-        <label for="diasPractica">Dias de Práctica:</label>
+        <Label for="diasPractica">Dias de Práctica:</Label>
         <br />
-        <input type="text" name="diasPractica" id="diasPractica" className="form-control" onChange={handleChange} value={AlumnoesSeleccionado && AlumnoesSeleccionado.diasPractica}></input>
+        <AvInput type="text" name="diasPractica" id="diasPractica" className="form-control" onChange={handleChange} value={AlumnoesSeleccionado && AlumnoesSeleccionado.diasPractica}></AvInput>
         <br />
-        <label for="valor">Valor:</label>
+        <Label for="valor">Valor:</Label>
         <br />
-        <input type="text" name="valor" id="valor" className="form-control" onChange={handleChange} value={AlumnoesSeleccionado && AlumnoesSeleccionado.valor}></input>
-      </div>
+        <AvInput type="number" name="valor" id="valor" className="form-control" onChange={handleChange} value={AlumnoesSeleccionado && AlumnoesSeleccionado.valor}></AvInput>
+        </FormGroup>
+      </AvForm>
 
     </ModalBody>
     <ModalFooter>
-      <button className="btn btn-primary" onClick={()=>peticionPut()}>Modificar</button>{"   "}
-      <button className="btn btn-danger" onClick={()=>abrirCerrarModalModificar()}>Cancelar</button>
+    <FormGroup>
+      <Button className="btn btn-primary" onClick={()=>peticionPut()}>Modificar</Button>{"   "}
+      <Button className="btn btn-danger" onClick={()=>abrirCerrarModalModificar()}>Cancelar</Button>
+      </FormGroup>
     </ModalFooter>
     </Modal>
 

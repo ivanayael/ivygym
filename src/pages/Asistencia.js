@@ -2,10 +2,11 @@ import React, { useState, useEffect} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import {Modal, ModalBody, ModalFooter, ModalHeader} from 'reactstrap';
+import { useAlert } from 'react-alert';
 
 //const Asistencia = () => {
 function Asistencia() {
-  
+  const alert = useAlert();
   const baseUrl="https://localhost:44335/api/Asistencias";
   const [data,setData]=useState([]);
   const [modalModificar, setModalModificar]=useState(false);
@@ -14,20 +15,20 @@ function Asistencia() {
   const [AsistenciasSeleccionado, setAsistenciasSeleccionado]=useState({
     idAsistencia: '',
     dni: '',
-    asistencia1: '',
-    asistencia2: '',
-    asistencia3: '',
-    asistencia4: '',
+    asistencia1: false,
+    asistencia2: false,
+    asistencia3: false,
+    asistencia4: false,
     pagoMensual: '',
     pagoFecha: '',
-    pagoRealizado: '',
+    pagoRealizado: false,
   })
 
   const handleChange=e=>{
     const {name, value}=e.target;
     setAsistenciasSeleccionado({
       ...AsistenciasSeleccionado,
-      [name]: value
+      [name]: value,
     });
     console.log(AsistenciasSeleccionado);
   }
@@ -52,7 +53,7 @@ function Asistencia() {
   }
 
   const peticionPost=async()=>{
-    delete AsistenciasSeleccionado.idAlumno;
+    delete AsistenciasSeleccionado.idAsistencia;
     AsistenciasSeleccionado.dni=parseInt(AsistenciasSeleccionado.dni);
     AsistenciasSeleccionado.pagoMensual=parseInt(AsistenciasSeleccionado.pagoMensual);
     await axios.post(baseUrl, AsistenciasSeleccionado)
@@ -67,6 +68,7 @@ function Asistencia() {
   const peticionPut=async()=>{
     AsistenciasSeleccionado.dni=parseInt(AsistenciasSeleccionado.dni);
     AsistenciasSeleccionado.pagoMensual=parseInt(AsistenciasSeleccionado.pagoMensual);
+    console.log(AsistenciasSeleccionado);
     await axios.put(baseUrl+"/"+AsistenciasSeleccionado.idAsistencia, AsistenciasSeleccionado)
     .then(response=>{
       var respuesta = response.data;
@@ -110,7 +112,7 @@ function Asistencia() {
   },[])
 
   return (
-    <div className="Alumnos">
+    <div className="Asistencia">
       <br/><br/>
       <button onClick={()=>abrirCerrarModalGuardar()} className="btn btn-success">Agregar Nueva Asistencia</button>
       <br/><br/>
@@ -134,13 +136,13 @@ function Asistencia() {
       <tr key={Asistencias.idAsistencia}>
         <td>{Asistencias.idAsistencia}</td>
         <td>{Asistencias.dni}</td>
-        <td>{Asistencias.asistencia1}</td>
-        <td>{Asistencias.asistencia2}</td>
-        <td>{Asistencias.asistencia3}</td>
-        <td>{Asistencias.asistencia4}</td>
+        <td>{Asistencias.asistencia1.toString()}</td>
+        <td>{Asistencias.asistencia2.toString()}</td>
+        <td>{Asistencias.asistencia3.toString()}</td>
+        <td>{Asistencias.asistencia4.toString()}</td>
         <td>{Asistencias.pagoMensual}</td>
         <td>{Asistencias.pagoFecha}</td>
-        <td>{Asistencias.pagoRealizado}</td>
+        <td>{Asistencias.pagoRealizado.toString()}</td>
         <td>
           <button className="btn btn-primary" onClick={()=>seleccionarAsistencias(Asistencias, "Modificar")}>Modificar</button> {"  "}
           <button className="btn btn-danger" onClick={()=>seleccionarAsistencias(Asistencias, "Eliminar")}>Eliminar</button>
@@ -156,7 +158,7 @@ function Asistencia() {
       <div className="form-group">
       <label for="dni">D.N.I.:</label>
         <br />
-        <input type="number" name="dni" id="dni" className="form-control" min="8" max="8" onChange={handleChange}></input>
+        <input type="number" name="dni" id="dni" className="form-control" onChange={handleChange}></input>
         <br />
         <label for="asistencia1">Dia 1 de Asistencia:</label>
         <br />
@@ -180,11 +182,11 @@ function Asistencia() {
         <br />
         <label for="pagoFecha">Fecha de Pago:</label>
         <br />
-        <input type="date" name="pagoFecha" id="pagoFecha" className="form-control" onChange={handleChange}></input>
+        <input type="datetime-local" name="pagoFecha" id="pagoFecha" className="form-control" onChange={handleChange}></input>
         <br />
-        <label for="pagoRealizado">Dias de Práctica:</label>
+        <label for="pagoRealizado">Pago Efectuado:</label>
         <br />
-        <input type="radio" name="pagoRealizado" id="pagoRealizado" className="form-control" onChange={handleChange}></input>
+        <input type="checkbox" name="pagoRealizado" id="pagoRealizado" className="form-control" onChange={handleChange}></input>
         <br />
 
       </div>
@@ -206,23 +208,23 @@ function Asistencia() {
         <br />
         <label for="dni">D.N.I.:</label>
         <br />
-        <input type="number" name="dni" id="dni" className="form-control" min="8" max="8" onChange={handleChange} value={AsistenciasSeleccionado && AsistenciasSeleccionado.dni}></input>
+        <input type="number" name="dni" id="dni" className="form-control" onChange={handleChange} value={AsistenciasSeleccionado && AsistenciasSeleccionado.dni}></input>
         <br />
         <label for="asistencia1">Dia 1 de Asistencia:</label>
         <br />
-        <input type="checkbox" name="asistencia1" id="asistencia1" className="form-control" onChange={handleChange} value={AsistenciasSeleccionado && AsistenciasSeleccionado.asistencia1}></input>
+        <input type="checkbox" name="asistencia1" id="asistencia1" className="form-control" onChange={handleChange} checked={AsistenciasSeleccionado && AsistenciasSeleccionado.asistencia1}></input>
         <br />
         <label for="asistencia2">Dia 2 de Asistencia:</label>
         <br />
-        <input type="checkbox" name="asistencia2" id="asistencia2" className="form-control" onChange={handleChange} value={AsistenciasSeleccionado && AsistenciasSeleccionado.asistencia2}></input>
+        <input type="checkbox" name="asistencia2" id="asistencia2" className="form-control" onChange={handleChange} checked={AsistenciasSeleccionado && AsistenciasSeleccionado.asistencia2}></input>
         <br />
         <label for="asistencia3">Dia 3 de Asistencia:</label>
         <br />
-        <input type="checkbox" name="asistencia3" id="asistencia3" className="form-control" onChange={handleChange} value={AsistenciasSeleccionado && AsistenciasSeleccionado.asistencia1}></input>
+        <input type="checkbox" name="asistencia3" id="asistencia3" className="form-control" onChange={handleChange} checked={AsistenciasSeleccionado && AsistenciasSeleccionado.asistencia3}></input>
         <br />
         <label for="asistencia4">Dia 4 de Asistencia:</label>
         <br />
-        <input type="checkbox" name="asistencia4" id="asistencia4" className="form-control" onChange={handleChange} value={AsistenciasSeleccionado && AsistenciasSeleccionado.asistencia1}></input>
+        <input type="checkbox" name="asistencia4" id="asistencia4" className="form-control" onChange={handleChange} checked={AsistenciasSeleccionado && AsistenciasSeleccionado.asistencia4}></input>
         <br />
         <label for="pagoMensual">Pago Mensual:</label>
         <br />
@@ -230,11 +232,11 @@ function Asistencia() {
         <br />
         <label for="pagoFecha">Fecha de Pago:</label>
         <br />
-        <input type="date" name="pagoFecha" id="pagoFecha" className="form-control" onChange={handleChange} value={AsistenciasSeleccionado && AsistenciasSeleccionado.pagoFecha}></input>
+        <input type="datetime-local" name="pagoFecha" id="pagoFecha" className="form-control" onChange={handleChange} value={AsistenciasSeleccionado && AsistenciasSeleccionado.pagoFecha}></input>
         <br />
-        <label for="pagoRealizado">Dias de Práctica:</label>
+        <label for="pagoRealizado">Pago Efectuado:</label>
         <br />
-        <input type="radio" name="pagoRealizado" id="pagoRealizado" className="form-control" onChange={handleChange} value={AsistenciasSeleccionado && AsistenciasSeleccionado.pagoRealizado}></input>
+        <input type="checkbox" name="pagoRealizado" id="pagoRealizado" className="form-control" onChange={handleChange} checked={AsistenciasSeleccionado && AsistenciasSeleccionado.pagoRealizado}></input>
         <br />
 
       </div>

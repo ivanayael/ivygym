@@ -1,7 +1,8 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+//import ReactDOM from 'react-dom';
 import { render } from 'react-dom';
 import './index.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { Provider as AlertProvider } from 'react-alert';
 import AlertTemplate from 'react-alert-template-basic';
 import App from './App';
@@ -22,14 +23,15 @@ const Root = () => (
   </AlertProvider>
 )
 
-render(<Root />, document.getElementById('root'))
+render(<Root />, document.getElementById('root'));
 
 
 //ReactDOM.render(
-//  <React.StrictMode>
-//    <App />
-//  </React.StrictMode>,
-//  document.getElementById('root')
+// <React.StrictMode>
+//   <App />
+//   <Root />
+// </React.StrictMode>,
+// document.getElementById('root')
 // );
 
 // If you want your app to work offline and load faster, you can change
