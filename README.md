@@ -10,24 +10,37 @@ La Base de Datos está realizada en SQL Server v. 15.0.2
 
 ## Done
 
--(MUST)Crear BD
--(MUST)Crear API
--(MUST)Crear SP
--(MUST)Crear CRUDs en React de Tutor, Alumno, Asistencia
--(MUST)Vincular SP con API
--(MUST)Crear Reportes en React 
--(MUST)Crear Menu Dinamico Responsive
--(MUST)Crear Alerta Inscriptos -18 años
--(MUST)Probar todos los casos de alerta para alumnos -18 años
+(MUST)Crear BD
+
+(MUST)Crear API
+
+(MUST)Crear SP
+
+(MUST)Crear CRUDs en React de Tutor, Alumno, Asistencia
+
+(MUST)Vincular SP con API
+
+(MUST)Crear Reportes en React 
+
+(MUST)Crear Menu Dinamico Responsive
+
+(MUST)Crear Alerta Inscriptos -18 años
+
+(MUST)Probar todos los casos de alerta para alumnos -18 años
 
 ## To Do (with errors)
 
--(MUST)Revisar y Reparar errores en las 3 pantallas - Error 404 de checkbox en Asistencia.js 
--(MUST)Agregar validaciones en los 3 formularios - las pruebas iniciales dieron OK
--(MAYBE)Crear un select de Nivel que funcione en put para Pantalla de Usuario - No sé como enviar y capturar informacion en el select
--(MAYBE)Crear un select de Categoria que funcione en put para Pantalla de Usuario  - No sé como enviar y capturar informacion en el select
--(MAYBE)Crear un select de usuario que funcione en put para pantalla de tutors  - No sé como enviar y capturar informacion en el select
--(MAYBE)Ver de Hacer File Upload en pantalla de usuario para certificado medico  - No sé como enviar y capturar informacion en el upload
+(MUST)Revisar y Reparar errores en las 3 pantallas - Error 404 de checkbox en Asistencia.js 
+
+(MUST)Agregar validaciones en los 3 formularios - las pruebas iniciales dieron OK
+
+(MAYBE)Crear un select de Nivel que funcione en put para Pantalla de Usuario - No sé como enviar y capturar informacion en el select
+
+(MAYBE)Crear un select de Categoria que funcione en put para Pantalla de Usuario  - No sé como enviar y capturar informacion en el select
+
+(MAYBE)Crear un select de usuario que funcione en put para pantalla de tutors  - No sé como enviar y capturar informacion en el select
+
+(MAYBE)Ver de Hacer File Upload en pantalla de usuario para certificado medico  - No sé como enviar y capturar informacion en el upload
 
 
 ## Available Scripts
