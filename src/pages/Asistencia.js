@@ -33,6 +33,17 @@ function Asistencia() {
     console.log(AsistenciasSeleccionado);
   }
 
+  
+  const handleChangeCheckbox=e=>{
+    const {name, checked}=e.target;
+    setAsistenciasSeleccionado({
+      ...AsistenciasSeleccionado,
+      [name]: checked,
+    });
+    console.log(AsistenciasSeleccionado);
+  }
+
+
   const abrirCerrarModalGuardar=()=>{
     setModalGuardar(!modalGuardar);
   }
@@ -114,7 +125,7 @@ function Asistencia() {
   return (
     <div className="Asistencia">
       <br/><br/>
-      <button onClick={()=>abrirCerrarModalGuardar()} className="btn btn-success">Agregar Nueva Asistencia</button>
+      <Button onClick={()=>abrirCerrarModalGuardar()} color="success">Agregar Nueva Asistencia</Button>{" "}
       <br/><br/>
       <table className="table table-bordered">
       <thead>
@@ -144,8 +155,8 @@ function Asistencia() {
         <td>{Asistencias.pagoFecha}</td>
         <td>{Asistencias.pagoRealizado.toString()}</td>
         <td>
-          <button className="btn btn-primary" onClick={()=>seleccionarAsistencias(Asistencias, "Modificar")}>Modificar</button> {"  "}
-          <button className="btn btn-danger" onClick={()=>seleccionarAsistencias(Asistencias, "Eliminar")}>Eliminar</button>
+          <Button color="primary" onClick={()=>seleccionarAsistencias(Asistencias, "Modificar")}>Modificar</Button>{"  "}
+          <Button color="danger" onClick={()=>seleccionarAsistencias(Asistencias, "Eliminar")}>Eliminar</Button>
         </td>
       </tr>
      ))}
@@ -193,8 +204,8 @@ function Asistencia() {
 
     </ModalBody>
     <ModalFooter>
-      <button className="btn btn-primary" onClick={()=>peticionPost()}>Agregar</button>{"  "}
-      <button className="btn btn-danger" onClick={()=>abrirCerrarModalGuardar()}>Cancelar</button>
+      <Button color="primary" onClick={()=>peticionPost()}>Agregar</Button>{"  "}
+      <Button color="danger" onClick={()=>abrirCerrarModalGuardar()}>Cancelar</Button>
     </ModalFooter>
     </Modal>
     
