@@ -28,20 +28,21 @@ La Base de Datos está realizada en SQL Server v. 15.0.2
 
 (MUST)Probar todos los casos de alerta para alumnos -18 años
 
+(MUST)Revisar y Reparar errores en las 3 pantallas - Error 404 de checkbox en Asistencia.js - Solucionado :D
+
+(MUST)Agregar validaciones en los 3 formularios - las pruebas iniciales dieron OK - Fué aplicado a los 2 formularios iniciales. Se omitió Asistencia.js
+
+(MAYBE)Crear un select de Nivel que funcione en put para Pantalla de Usuario - No sé como enviar y capturar informacion en el select - Se pudo solucionar :D
+
+(MAYBE)Crear un select de Categoria que funcione en put para Pantalla de Usuario  - No sé como enviar y capturar informacion en el select - Se pudo solucionar :D
+
+(MAYBE)Crear un select de usuario que funcione en put para pantalla de tutors  - No sé como enviar y capturar informacion en el select - Se pudo solucionar :D
+
+(MAYBE)Ver de Hacer File Upload en pantalla de usuario para certificado medico  - No sé como enviar y capturar informacion en el upload - Se pudo solucionar parcialmente.
+
 ## To Do (with errors)
 
-(MUST)Revisar y Reparar errores en las 3 pantallas - Error 404 de checkbox en Asistencia.js 
-
-(MUST)Agregar validaciones en los 3 formularios - las pruebas iniciales dieron OK
-
-(MAYBE)Crear un select de Nivel que funcione en put para Pantalla de Usuario - No sé como enviar y capturar informacion en el select
-
-(MAYBE)Crear un select de Categoria que funcione en put para Pantalla de Usuario  - No sé como enviar y capturar informacion en el select
-
-(MAYBE)Crear un select de usuario que funcione en put para pantalla de tutors  - No sé como enviar y capturar informacion en el select
-
-(MAYBE)Ver de Hacer File Upload en pantalla de usuario para certificado medico  - No sé como enviar y capturar informacion en el upload
-
+NONE FOR NOW
 
 ## Available Scripts
 
