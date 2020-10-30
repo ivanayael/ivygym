@@ -1,7 +1,9 @@
 import React, { useState, useEffect} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
-import {Modal, ModalBody, ModalFooter, ModalHeader} from 'reactstrap';
+import { FormGroup, Button, Label, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { AvForm, AvGroup, AvInput, AvFeedback } from 'availity-reactstrap-validation';
+
 
 
 
@@ -31,7 +33,12 @@ function Tutores() {
     });
     console.log(TutorsSeleccionado);
   }
-
+  
+  const handleInvalidSubmit=e=>{
+    const {values}=e.target;
+    this.setState({values});
+  }
+  
   const abrirCerrarModalGuardar=()=>{
     setModalGuardar(!modalGuardar);
   }
@@ -110,8 +117,8 @@ function Tutores() {
 
   return (
     <div className="Tutores">
-      <br/><br/>
-      <button onClick={()=>abrirCerrarModalGuardar()} className="btn btn-success">Agregar Nuevo Alumno</button>
+       <br/><h1>Registro de Los Tutores de los Alumnos Menores de 18 años</h1><br/>
+      <Button onClick={()=>abrirCerrarModalGuardar()} color="success">Agregar Nuevo Tutor</Button>
       <br/><br/>
       <table className="table table-bordered">
       <thead>
@@ -137,8 +144,8 @@ function Tutores() {
         <td>{Tutors.telefono}</td>
         <td>{Tutors.idAlumno}</td>
         <td>
-          <button className="btn btn-primary" onClick={()=>seleccionarTutors(Tutors, "Modificar")}>Modificar</button> {"  "}
-          <button className="btn btn-danger" onClick={()=>seleccionarTutors(Tutors, "Eliminar")}>Eliminar</button>
+          <Button color="primary"  onClick={()=>seleccionarTutors(Tutors, "Modificar")}>Modificar</Button>{"  "}
+           <Button color="danger" onClick={()=>seleccionarTutors(Tutors, "Eliminar")}>Eliminar</Button>
         </td>
       </tr>
      ))}
@@ -148,79 +155,124 @@ function Tutores() {
     <Modal isOpen={modalGuardar}>
     <ModalHeader>Agregar Tutor</ModalHeader>
     <ModalBody>
-      <div className="form-group">
-        <label for="nombre">Nombre:</label>
+    <AvForm onInvalidSubmit={handleInvalidSubmit} className="form-group">
+      <FormGroup>
+        <AvGroup>
+        <Label for="nombre">Nombre:</Label>
         <br />
-        <input type="text" name="nombre" id="nombre" className="form-control" onChange={handleChange}></input>
+        <AvInput type="text" name="nombre" id="nombre" className="form-control" onChange={handleChange} required />
+        <AvFeedback>Se requiere un nombre</AvFeedback>
+         </AvGroup>
         <br />
-        <label for="apellido">Apellido:</label>
+        <AvGroup>
+        <Label for="apellido">Apellido:</Label>
         <br />
-        <input type="text" name="apellido" id="apellido" className="form-control" onChange={handleChange}></input>
+        <AvInput type="text" name="apellido" id="apellido" className="form-control" onChange={handleChange} required />
+        <AvFeedback>Se requiere un apellido</AvFeedback>
+        </AvGroup>
         <br />
-        <label for="dni">D.N.I.:</label>
+        <AvGroup>
+        <Label for="dni">D.N.I.:</Label>
         <br />
-        <input type="number" name="dni" id="dni" className="form-control" min="8" max="8" onChange={handleChange}></input>
+        <AvInput type="number" name="dni" id="dni" className="form-control" onChange={handleChange} required />
+        <AvFeedback>Se requiere un DNI</AvFeedback>
+        </AvGroup>
         <br />
-        <label for="mail">Mail:</label>
+        <AvGroup>
+        <Label for="mail">Mail:</Label>
         <br />
-        <input type="email" name="mail" id="mail" className="form-control" onChange={handleChange}></input>
+        <AvInput type="email" name="mail" id="mail" className="form-control" onChange={handleChange} required />
+        <AvFeedback>Se requiere una email</AvFeedback>
+        </AvGroup>
         <br />
-        <label for="telefono">Teléfono:</label>
+		<AvGroup>
+        <Label for="telefono">Teléfono:</Label>
         <br />
-        <input type="text" name="telefono" id="telefono" className="form-control" onChange={handleChange}></input>
+        <AvInput type="text" name="telefono" id="telefono" className="form-control" onChange={handleChange} required />
+        <AvFeedback>Se requiere un numero de telefono</AvFeedback>
+        </AvGroup>
         <br />
-        <label for="idAlumno">ID de Alumno:</label>
+	    <AvGroup>
+        <Label for="idAlumno">ID de Alumno:</Label>
         <br />
-        <input type="number" name="idAlumno" id="idAlumno" className="form-control" onChange={handleChange}></input>
+        <AvInput type="number" name="idAlumno" id="idAlumno"  className="form-control" onChange={handleChange} required/>
+        <AvFeedback>Se requiere ingresar el ID del alumno asociado</AvFeedback>
+        </AvGroup>
         <br />
-      </div>
-
+        </FormGroup>
+      </AvForm>
+	  
     </ModalBody>
     <ModalFooter>
-      <button className="btn btn-primary" onClick={()=>peticionPost()}>Agregar</button>{"  "}
-      <button className="btn btn-danger" onClick={()=>abrirCerrarModalGuardar()}>Cancelar</button>
+      <FormGroup>
+      <Button color="primary" onClick={()=>peticionPost()}>Agregar</Button>{"  "}
+      <Button color="danger" onClick={()=>abrirCerrarModalGuardar()}>Cancelar</Button>
+      </FormGroup>
     </ModalFooter>
     </Modal>
     
     <Modal isOpen={modalModificar}>
     <ModalHeader>Modificar Tutor</ModalHeader>
     <ModalBody>
-      <div className="form-group">
-        <label for="idTutor">ID de Tutor:</label>
+      <AvForm onInvalidSubmit={handleInvalidSubmit} className="form-group">
+      <FormGroup>
+	     <AvGroup>
+        <Label for="idTutor">ID de Tutor:</Label>
         <br />
-        <input type="text" name="idTutor" id="idTutor" className="form-control" readOnly value={TutorsSeleccionado && TutorsSeleccionado.idAlumno }></input>
+        <AvInput  type="text" name="idTutor" id="idTutor" className="form-control" readOnly value={TutorsSeleccionado && TutorsSeleccionado.idAlumno } />
+		</AvGroup>
         <br />
-        <label for="nombre">Nombre:</label>
+		<AvGroup>
+        <Label for="nombre">Nombre:</Label>
         <br />
-        <input type="text" name="nombre" id="nombre" className="form-control" onChange={handleChange} value={TutorsSeleccionado && TutorsSeleccionado.nombre}></input>
+        <AvInput  type="text" name="nombre" id="nombre" className="form-control" onChange={handleChange} value={TutorsSeleccionado && TutorsSeleccionado.nombre} />
+		<AvFeedback>Se requiere ingresar el nombre</AvFeedback>
+        </AvGroup>
         <br />
-        <label for="apellido">Apellido:</label>
+		 <AvGroup>
+        <Label for="apellido">Apellido:</Label>
         <br />
-        <input type="text" name="apellido" id="apellido" className="form-control" onChange={handleChange} value={TutorsSeleccionado && TutorsSeleccionado.apellido}></input>
+        <AvInput type="text" name="apellido" id="apellido" className="form-control" onChange={handleChange} value={TutorsSeleccionado && TutorsSeleccionado.apellido} />
+		 <AvFeedback>Se requiere ingresar el apellido</AvFeedback>
+        </AvGroup>
         <br />
-        <label for="dni">D.N.I.:</label>
+		 <AvGroup>
+        <Label for="dni">D.N.I.:</Label>
         <br />
-        <input type="number" name="dni" id="dni" className="form-control" min="8" max="8" onChange={handleChange} value={TutorsSeleccionado && TutorsSeleccionado.dni}></input>
+         <AvInput type="number" name="dni" id="dni" className="form-control" min="8" max="8" onChange={handleChange} value={TutorsSeleccionado && TutorsSeleccionado.dni} />
+		 <AvFeedback>Se requiere ingresar el dni</AvFeedback>
+        </AvGroup>
         <br />
+		 <AvGroup>
         <label for="mail">Mail:</label>
         <br />
-        <input type="email" name="mail" id="mail" className="form-control" onChange={handleChange} value={TutorsSeleccionado && TutorsSeleccionado.mail}></input>
+         <AvInput  type="email" name="mail" id="mail" className="form-control" onChange={handleChange} value={TutorsSeleccionado && TutorsSeleccionado.mail} />
+		<AvFeedback>Se requiere ingresar el email</AvFeedback>
+        </AvGroup>
         <br />
-        <label for="telefono">Teléfono:</label>
+		 <AvGroup>
+        <Label for="telefono">Teléfono:</Label>
         <br />
-        <input type="text" name="telefono" id="telefono" className="form-control" onChange={handleChange} value={TutorsSeleccionado && TutorsSeleccionado.telefono}></input>
+         <AvInput type="text" name="telefono" id="telefono" className="form-control" onChange={handleChange} value={TutorsSeleccionado && TutorsSeleccionado.telefono} />
+		 <AvFeedback>Se requiere ingresar número de teléfono</AvFeedback>
+        </AvGroup>
         <br />
-        <label for="idAlumno">ID de Alumno:</label>
+		 <AvGroup>
+        <Label for="idAlumno">ID de Alumno:</Label>
         <br />
-        <input type="number" name="idAlumno" id="idAlumno" className="form-control" onChange={handleChange}  value={TutorsSeleccionado && TutorsSeleccionado.idAlumno} ></input>
+         <AvInput  type="number" name="idAlumno" id="idAlumno" className="form-control" onChange={handleChange}  value={TutorsSeleccionado && TutorsSeleccionado.idAlumno} />
+		 <AvFeedback>Se requiere ingresar la ID de alumno asociado al tutor</AvFeedback>
+        </AvGroup>
         <br />
-        <br />
-      </div>
+        </FormGroup>
+      </AvForm>
 
     </ModalBody>
     <ModalFooter>
-      <button className="btn btn-primary" onClick={()=>peticionPut()}>Modificar</button>{"   "}
-      <button className="btn btn-danger" onClick={()=>abrirCerrarModalModificar()}>Cancelar</button>
+    <FormGroup>
+      <Button color="primary" onClick={()=>peticionPut()}>Modificar</Button>{"   "}
+      <Button color="danger" onClick={()=>abrirCerrarModalModificar()}>Cancelar</Button>
+      </FormGroup>
     </ModalFooter>
     </Modal>
 
@@ -229,15 +281,15 @@ function Tutores() {
         ¿Estas seguro que deseas eliminar al Tutor { TutorsSeleccionado && TutorsSeleccionado.nombre}? 
       </ModalBody>
       <ModalFooter>
-        <button className="btn btn-danger" onClick={()=>peticionDelete()}>
+        <Button color="danger" onClick={()=>peticionDelete()}>
           Sí
-        </button>
-        <button
-          className="btn btn-secondary"
+        </Button>
+        <Button
+          color="secondary"
           onClick={()=>abrirCerrarModalEliminar()}
         >
           No
-        </button>
+        </Button>
         </ModalFooter>
       </Modal>
     </div>

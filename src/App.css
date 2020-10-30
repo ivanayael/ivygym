@@ -49,12 +49,17 @@
   font-family: 'Lato', sans-serif;
 }
 
+.Inicio,
 .Alumnos,
 .Asistencia,
-.Autores,
+.Tutores,
 .ReporteAsistenciaNivel,
 .ReportePagoNivel {
+  
   align-items: center;
-  justify-content: center;
+  justify-content: center; 
+  flex-direction: column;
+  text-align: center;
+  
 }
 

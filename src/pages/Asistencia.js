@@ -1,12 +1,10 @@
 import React, { useState, useEffect} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
-import {Modal, ModalBody, ModalFooter, ModalHeader} from 'reactstrap';
-import { useAlert } from 'react-alert';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 //const Asistencia = () => {
 function Asistencia() {
-  const alert = useAlert();
   const baseUrl="https://localhost:44335/api/Asistencias";
   const [data,setData]=useState([]);
   const [modalModificar, setModalModificar]=useState(false);
@@ -79,6 +77,7 @@ function Asistencia() {
   const peticionPut=async()=>{
     AsistenciasSeleccionado.dni=parseInt(AsistenciasSeleccionado.dni);
     AsistenciasSeleccionado.pagoMensual=parseInt(AsistenciasSeleccionado.pagoMensual);
+
     console.log(AsistenciasSeleccionado);
     await axios.put(baseUrl+"/"+AsistenciasSeleccionado.idAsistencia, AsistenciasSeleccionado)
     .then(response=>{
@@ -124,7 +123,7 @@ function Asistencia() {
 
   return (
     <div className="Asistencia">
-      <br/><br/>
+      <br/><h1>Control de Asistencia y Pagos</h1><br/>
       <Button onClick={()=>abrirCerrarModalGuardar()} color="success">Agregar Nueva Asistencia</Button>{" "}
       <br/><br/>
       <table className="table table-bordered">
@@ -173,19 +172,19 @@ function Asistencia() {
         <br />
         <label for="asistencia1">Dia 1 de Asistencia:</label>
         <br />
-        <input type="checkbox" name="asistencia1" id="asistencia1" className="form-control" onChange={handleChange}></input>
+        <input type="checkbox" name="asistencia1" id="asistencia1" className="form-control" onChange={handleChangeCheckbox}></input>
         <br />
         <label for="asistencia2">Dia 2 de Asistencia:</label>
         <br />
-        <input type="checkbox" name="asistencia2" id="asistencia2" className="form-control" onChange={handleChange}></input>
+        <input type="checkbox" name="asistencia2" id="asistencia2" className="form-control" onChange={handleChangeCheckbox}></input>
         <br />
         <label for="asistencia3">Dia 3 de Asistencia:</label>
         <br />
-        <input type="checkbox" name="asistencia3" id="asistencia3" className="form-control" onChange={handleChange}></input>
+        <input type="checkbox" name="asistencia3" id="asistencia3" className="form-control" onChange={handleChangeCheckbox}></input>
         <br />
         <label for="asistencia4">Dia 4 de Asistencia:</label>
         <br />
-        <input type="checkbox" name="asistencia4" id="asistencia4" className="form-control" onChange={handleChange}></input>
+        <input type="checkbox" name="asistencia4" id="asistencia4" className="form-control" onChange={handleChangeCheckbox}></input>
         <br />
         <label for="pagoMensual">Pago Mensual:</label>
         <br />
@@ -197,7 +196,7 @@ function Asistencia() {
         <br />
         <label for="pagoRealizado">Pago Efectuado:</label>
         <br />
-        <input type="checkbox" name="pagoRealizado" id="pagoRealizado" className="form-control" onChange={handleChange}></input>
+        <input type="checkbox" name="pagoRealizado" id="pagoRealizado" className="form-control" onChange={handleChangeCheckbox}></input>
         <br />
 
       </div>
@@ -223,19 +222,19 @@ function Asistencia() {
         <br />
         <label for="asistencia1">Dia 1 de Asistencia:</label>
         <br />
-        <input type="checkbox" name="asistencia1" id="asistencia1" className="form-control" onChange={handleChange} checked={AsistenciasSeleccionado && AsistenciasSeleccionado.asistencia1}></input>
+        <input type="checkbox" name="asistencia1" id="asistencia1" className="form-control" onChange={handleChangeCheckbox} checked={AsistenciasSeleccionado && AsistenciasSeleccionado.asistencia1}></input>
         <br />
         <label for="asistencia2">Dia 2 de Asistencia:</label>
         <br />
-        <input type="checkbox" name="asistencia2" id="asistencia2" className="form-control" onChange={handleChange} checked={AsistenciasSeleccionado && AsistenciasSeleccionado.asistencia2}></input>
+        <input type="checkbox" name="asistencia2" id="asistencia2" className="form-control" onChange={handleChangeCheckbox} checked={AsistenciasSeleccionado && AsistenciasSeleccionado.asistencia2}></input>
         <br />
         <label for="asistencia3">Dia 3 de Asistencia:</label>
         <br />
-        <input type="checkbox" name="asistencia3" id="asistencia3" className="form-control" onChange={handleChange} checked={AsistenciasSeleccionado && AsistenciasSeleccionado.asistencia3}></input>
+        <input type="checkbox" name="asistencia3" id="asistencia3" className="form-control" onChange={handleChangeCheckbox} checked={AsistenciasSeleccionado && AsistenciasSeleccionado.asistencia3}></input>
         <br />
         <label for="asistencia4">Dia 4 de Asistencia:</label>
         <br />
-        <input type="checkbox" name="asistencia4" id="asistencia4" className="form-control" onChange={handleChange} checked={AsistenciasSeleccionado && AsistenciasSeleccionado.asistencia4}></input>
+        <input type="checkbox" name="asistencia4" id="asistencia4" className="form-control" onChange={handleChangeCheckbox} checked={AsistenciasSeleccionado && AsistenciasSeleccionado.asistencia4}></input>
         <br />
         <label for="pagoMensual">Pago Mensual:</label>
         <br />
@@ -247,7 +246,7 @@ function Asistencia() {
         <br />
         <label for="pagoRealizado">Pago Efectuado:</label>
         <br />
-        <input type="checkbox" name="pagoRealizado" id="pagoRealizado" className="form-control" onChange={handleChange} checked={AsistenciasSeleccionado && AsistenciasSeleccionado.pagoRealizado}></input>
+        <input type="checkbox" name="pagoRealizado" id="pagoRealizado" className="form-control" onChange={handleChangeCheckbox} checked={AsistenciasSeleccionado && AsistenciasSeleccionado.pagoRealizado}></input>
         <br />
 
       </div>

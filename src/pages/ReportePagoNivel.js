@@ -24,7 +24,7 @@ function ReportePagoNivel() {
 
   return (
     <div className="ReportePagoNivel">
-      <br/><br/>
+      <br/><h1>Reporte de Pagos por Nivel</h1><br/>
       <table className="table table-bordered">
       <thead>
         <tr>
@@ -50,7 +50,7 @@ function ReportePagoNivel() {
         <td>{SpReportePagoNivels.valor}</td>
         <td>{SpReportePagoNivels.pagoFecha}</td>
         <td>{SpReportePagoNivels.pagoMensual}</td>
-        <td>{SpReportePagoNivels.pagoRealizado}</td>
+        <td>{SpReportePagoNivels.pagoRealizado.toString()}</td>
       </tr>
      ))}
     </tbody>

@@ -23,8 +23,9 @@ function ReporteAsistenciaNivel() {
   },[])
 
   return (
+  
     <div className="ReporteAsistenciaNivel">
-      <br/><br/>
+     <br/><h1>Reporte de Asistencia por Nivel</h1><br/>
       <table className="table table-bordered">
       <thead>
         <tr>
@@ -49,10 +50,10 @@ function ReporteAsistenciaNivel() {
         <td>{SpReporteAsistenciaNivels.apellido}</td>
         <td>{SpReporteAsistenciaNivels.dni}</td>
         <td>{SpReporteAsistenciaNivels.diasPractica}</td>
-        <td>{SpReporteAsistenciaNivels.asistencia1}</td>
-        <td>{SpReporteAsistenciaNivels.asistencia2}</td>
-        <td>{SpReporteAsistenciaNivels.asistencia3}</td>
-        <td>{SpReporteAsistenciaNivels.asistencia4}</td>
+        <td>{SpReporteAsistenciaNivels.asistencia1.toString()}</td>
+        <td>{SpReporteAsistenciaNivels.asistencia2.toString()}</td>
+        <td>{SpReporteAsistenciaNivels.asistencia3.toString()}</td>
+        <td>{SpReporteAsistenciaNivels.asistencia4.toString()}</td>
       </tr>
      ))}
     </tbody>

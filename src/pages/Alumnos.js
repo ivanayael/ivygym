@@ -1,8 +1,8 @@
 import React, { useState, useEffect} from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { AvForm, AvGroup, AvInput, AvFeedback } from 'availity-reactstrap-validation';
-import { FormGroup, Button, Label, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { AvForm, AvField, AvGroup, AvInput, AvFeedback } from 'availity-reactstrap-validation';
+import { FormGroup, Button, Label, Modal, ModalHeader, ModalBody, ModalFooter} from 'reactstrap';
 import { useAlert } from 'react-alert';
 
 
@@ -31,6 +31,16 @@ function Alumnos() {
     valor: '',
   })
 
+  const handleUpload=e=>{
+    const {name, files}=e.target;
+    console.log(name, URL.createObjectURL(files[0]));
+    setAlumnoesSeleccionado({
+      ...AlumnoesSeleccionado,
+      [name]: URL.createObjectURL(files[0])
+    });
+    console.log(AlumnoesSeleccionado);
+  }
+
   const handleChange=e=>{
     const {name, value}=e.target;
     setAlumnoesSeleccionado({
@@ -41,10 +51,6 @@ function Alumnos() {
   }
 
 
-  const handleValidSubmit=e=>{
-    const {values}=e.target;
-    this.setState({values});
-  }
 
   const handleInvalidSubmit=e=>{
     const {values}=e.target;
@@ -60,6 +66,7 @@ function Alumnos() {
   const abrirCerrarModalEliminar=()=>{
     setModalEliminar(!modalEliminar);
   }
+
 
   const peticionGet=async()=>{
     await axios.get(baseUrl)
@@ -140,7 +147,7 @@ function Alumnos() {
 
   return (
     <div className="Alumnos">
-      <br/><br/>
+      <br/><h1>Registro de Alumnos</h1><br/>
       <Button onClick={()=>abrirCerrarModalGuardar()} color="success">Agregar Nuevo Alumno</Button>{" "}
       <br/><br/>
       <table className="table table-bordered">
@@ -246,7 +253,7 @@ function Alumnos() {
         <AvGroup>
         <Label for="certificadomedico">Certificado Médico:</Label>
         <br />
-        <AvInput type="file" accept="image/x-png,image/gif,image/jpeg" name="certificadomedico" id="certificadomedico" className="form-control" onChange={handleChange} required/>
+        <AvInput type="file" accept="image/x-png,image/png,image/gif,image/jpeg,image/jpg" name="certificadomedico" id="certificadomedico" className="form-control" onChange={handleUpload} required/>
         <AvFeedback>Se requiere adjuntar un certificado médico</AvFeedback>
         </AvGroup>
         <br />
@@ -258,31 +265,50 @@ function Alumnos() {
         </AvGroup>
         <br />
         <AvGroup>
-        <Label for="nivel">Nivel:</Label>
+        <AvField type="select" name="nivel" id="nivel" label="Nivel:" className="form-control" onChange={handleChange} required>
+            <option value="Escuelita" selected>Escuelita</option>
+            <option value="Escuela">Escuela</option>
+            <option value="Pre equipo">Pre equipo</option>
+            <option value="Equipo">Equipo</option>
+        </AvField>
+        <AvFeedback>Se requiere un nivel según la edad.Si no lo conoce, seleccione cualquiera y el sistema recalculará los datos</AvFeedback>
+        </AvGroup>
+    
         <br />
-        <AvInput type="text" name="nivel" id="nivel" className="form-control" onChange={handleChange} required />
-        <AvFeedback>Se requiere un nivel. Si no la conoce escriba NA y el sistema recalculará los datos</AvFeedback>
+        <AvGroup>
+        <AvField type="select" name="categoria" id="categoria" label="Categoria:" className="form-control" onChange={handleChange} required>
+            <option value="Pulgas" selected>Pulgas</option>
+            <option value="Premini">Premini</option>
+            <option value="Mini">Mini</option>
+            <option value="Preinfantil">Preinfantil</option>
+            <option value="Infantil">Infantil</option>
+            <option value="Juveniles">Juveniles</option>
+            <option value="Avanzada">Avanzada</option>
+        </AvField>
+        <AvFeedback>Se requiere una categoria según el nivel. Si no lo conoce, seleccione cualquiera y el sistema recalculará los datos</AvFeedback>
+        </AvGroup>
+
+        <br />
+        <AvGroup>
+        <AvField type="select" name="diasPractica" id="diasPractica" label="Dias de Práctica:" className="form-control" onChange={handleChange} required>
+            <option value="Miércoles-Viernes" selected>Miércoles-Viernes</option>
+            <option value="Martes-Viernes">Martes-Viernes</option>
+            <option value="Lunes-Miércoles">Lunes-Miércoles</option>
+            <option value="Lunes-Martes-Viernes">Lunes-Martes-Viernes</option>
+            <option value="Lunes-Miércoles-Viernes">Lunes-Miércoles-Viernes</option>
+            <option value="Lunes-Martes-Miércoles-Viernes">Lunes-Martes-Miércoles-Viernes</option>
+        </AvField>
+        <AvFeedback>Se requiere seleccionar los dias de practica segun nivel y categoria.Si no los conoce, seleccione cualquiera y el sistema recalculará los datos</AvFeedback>
         </AvGroup>
         <br />
         <AvGroup>
-        <Label for="categoria">Categoria:</Label>
-        <br />
-        <AvInput type="text" name="categoria" id="categoria" className="form-control" onChange={handleChange} required />
-        <AvFeedback>Se requiere una categoria. Si no la conoce escriba NA y el sistema recalculará los datos</AvFeedback>
-        </AvGroup>
-        <br />
-        <AvGroup>
-        <Label for="diasPractica">Dias de Práctica:</Label>
-        <br />
-        <AvInput type="text" name="diasPractica" id="diasPractica" className="form-control" onChange={handleChange} required />
-        <AvFeedback>Se requiere ingresar los dias de practica. Si no la conoce escriba NA y el sistema recalculará los datos</AvFeedback>
-        </AvGroup>
-        <br />
-        <AvGroup>
-        <Label for="valor">Valor:</Label>
-        <br />
-        <AvInput type="number" name="valor" id="valor" className="form-control" onChange={handleChange} required/>
-        <AvFeedback>Se requiere ingresar el valor a pagar de la clase. Si no la conoce escriba 0 y el sistema recalculará los datos</AvFeedback>
+        <AvField type="select" name="valor" id="valor" label="Valor:" className="form-control" onChange={handleChange} required>
+            <option value="1000" selected>1000</option>
+            <option value="1500">1500</option>
+            <option value="2000">2000</option>
+            <option value="2500">2500</option>
+        </AvField>
+        <AvFeedback>Se requiere un valor según los dias de práctica.Si no lo conoce, seleccione cualquiera y el sistema recalculará los datos</AvFeedback>
         </AvGroup>
         <br />
         </FormGroup>
@@ -360,7 +386,7 @@ function Alumnos() {
         <AvGroup>
         <Label for="certificadomedico">Certificado Médico:</Label>
         <br />
-        <AvInput type="image" alt="certificado medico" name="certificadomedico" id="certificadomedico"  className="form-control" onChange={handleChange} value={AlumnoesSeleccionado && AlumnoesSeleccionado.certificadomedico} />
+        <AvInput type="text" name="certificadomedico" id="certificadomedico"  className="form-control" onChange={handleChange} value={AlumnoesSeleccionado && AlumnoesSeleccionado.certificadomedico} />
         <AvFeedback>Se requiere ingresar el certificado medico de buena salud</AvFeedback>
         </AvGroup>
         <br />
@@ -372,32 +398,50 @@ function Alumnos() {
         </AvGroup>
         <br />
         <AvGroup>
-        <Label for="nivel">Nivel:</Label>
-        <br />
-        <AvInput type="text" name="nivel" id="nivel" className="form-control" onChange={handleChange} value={AlumnoesSeleccionado && AlumnoesSeleccionado.nivel} />
-        <AvFeedback>Se requiere ingresar el nivel.Si no la conoce, ingrese NA y el sistema recalculara la categoria automaticamente</AvFeedback>
+        <AvField type="select" name="nivel" id="nivel" label="Nivel:" className="form-control" onChange={handleChange} value={AlumnoesSeleccionado && AlumnoesSeleccionado.nivel} >
+            <option value="Escuelita">Escuelita</option>
+            <option value="Escuela">Escuela</option>
+            <option value="Pre equipo">Pre equipo</option>
+            <option value="Equipo">Equipo</option>
+        </AvField>
+        <AvFeedback>Se requiere un nivel según la edad.Si no lo conoce, seleccione cualquiera y el sistema recalculará los datos</AvFeedback>
         </AvGroup>
         <br />
         <AvGroup>
-        <Label for="categoria">Categoria:</Label>
-        <br />
-        <AvInput type="text" name="categoria" id="categoria" className="form-control" onChange={handleChange} value={AlumnoesSeleccionado && AlumnoesSeleccionado.categoria}></AvInput>
-        <AvFeedback>Se requiere ingresar la categoria.Si no la conoce, ingrese NA y el sistema recalculara la categoria automaticamente</AvFeedback>
+        <AvField type="select" name="categoria" id="categoria" label="Categoria:" className="form-control" onChange={handleChange} value={AlumnoesSeleccionado && AlumnoesSeleccionado.categoria}>
+            <option value="Pulgas">Pulgas</option>
+            <option value="Premini">Premini</option>
+            <option value="Mini">Mini</option>
+            <option value="Preinfantil">Preinfantil</option>
+            <option value="Infantil">Infantil</option>
+            <option value="Juveniles">Juveniles</option>
+            <option value="Avanzada">Avanzada</option>
+        </AvField>
+        <AvFeedback>Se requiere una categoria según el nivel. Si no lo conoce, seleccione cualquiera y el sistema recalculará los datos</AvFeedback>
         </AvGroup>
         <br />
         <AvGroup>
-        <Label for="diasPractica">Dias de Práctica:</Label>
-        <br />
-        <AvInput type="text" name="diasPractica" id="diasPractica" className="form-control" onChange={handleChange} value={AlumnoesSeleccionado && AlumnoesSeleccionado.diasPractica} />
-        <AvFeedback>Se requiere ingresar la categoria.Si no la conoce, ingrese NA y el sistema recalculara los dias de práctica automaticamente</AvFeedback>
+        <AvField type="select" name="diasPractica" id="diasPractica" label="Dias de Práctica:" className="form-control" onChange={handleChange} value={AlumnoesSeleccionado && AlumnoesSeleccionado.diasPractica} >
+            <option value="Miércoles-Viernes">Miércoles-Viernes</option>
+            <option value="Martes-Viernes">Martes-Viernes</option>
+            <option value="Lunes-Miércoles">Lunes-Miércoles</option>
+            <option value="Lunes-Martes-Viernes">Lunes-Martes-Viernes</option>
+            <option value="Lunes-Miércoles-Viernes">Lunes-Miércoles-Viernes</option>
+            <option value="Lunes-Martes-Miércoles-Viernes">Lunes-Martes-Miércoles-Viernes</option>
+        </AvField>
+        <AvFeedback>Se requiere los dias de practica segun el nivel y categoria.Si no los conoce, seleccione cualquiera y el sistema recalculará los datos</AvFeedback>
         </AvGroup>
         <br />
         <AvGroup>
-        <Label for="valor">Valor:</Label>
-        <br />
-        <AvInput type="number" name="valor" id="valor" className="form-control" onChange={handleChange} value={AlumnoesSeleccionado && AlumnoesSeleccionado.valor}></AvInput>
-        <AvFeedback>Se requiere ingresar la categoria.Si no la conoce, ingrese 0 y el sistema recalculara el valor automaticamente</AvFeedback>
+        <AvField type="select" name="valor" id="valor" label="Valor:" className="form-control" onChange={handleChange} value={AlumnoesSeleccionado && AlumnoesSeleccionado.valor}>
+            <option value="1000">1000</option>
+            <option value="1500">1500</option>
+            <option value="2000">2000</option>
+            <option value="2500">2500</option>
+        </AvField>
+        <AvFeedback>Se requiere un valor según los dias de práctica.Si no lo conoce, seleccione cualquiera y el sistema recalculará los datos</AvFeedback>
         </AvGroup>
+
         </FormGroup>
       </AvForm>
 
