@@ -1,7 +1,7 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 El proyecto está realizado en React con Reactstrap y 
-Con validaciones usando Alert.js y Availity reactstrap (Faltan terminar las validaciones al dia de la fecha)
+Con validaciones usando Alert.js y Availity reactstrap
 
 El Backend está realizado mendiante una webapi en .NET Core 3 en Visual Studio Community Ver. 2019
 
